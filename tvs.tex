@@ -1,0 +1,34 @@
+\chapter{Topological Vector Spaces}
+
+\begin{conv}
+	Unless stated otherwise, the following will always be assumed:
+	\begin{assmplist}
+		\item $K\in\{\mathbb{R, C}\}$.
+		
+		\item Topological vector spaces will be over $K$.
+		
+		\item $X$, $Y$ will stand for TVS's over $K$.
+		
+		\item For $x, y\in X$, we'll use the $[x; y]$, $[x; y)$, \etc notation.
+		
+		\item Subspaces of TVS's will be seen as TVS's.
+		
+		\item $\mathcal L_c(X, Y)$ will stand for the set of continuous linear maps $X\to Y$,\footnote{Note that $X$ and $Y$ are over the \emph{same} field $K$.} which will be seen as a vector space.
+		
+		\item $X^*$ will stand for $\mathcal L_c(X, K)$.
+	\end{assmplist}
+\end{conv}
+
+\section{Basics}
+
+	\begin{lem}
+		Closure of a subspace is a subspace.
+	\end{lem}
+	
+	\begin{prp}
+		Any proper subspace of a TVS has empty interior, or equivalently, has dense complement.
+	\end{prp}
+	
+	\begin{proof}
+		Let $M$ be a proper subspace of $X$. It suffices to show that $X\setminus M$'s closure is whole of $X$, that is, each point of $X$ is a limit of some sequence in $X\setminus M$. Let $x\in X$. \Wlogg, let $x\in M$. Now, take a $y\notin M$ (since \uline{$M$ proper}). Then $x$ is the limit of the sequence $(x + y/n)_n\in X\setminus M$ as required.
+	\end{proof}

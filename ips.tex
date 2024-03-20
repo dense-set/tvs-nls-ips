@@ -1,0 +1,362 @@
+\chapter{Inner Product Spaces}
+
+	\begin{conv}
+		Unless stated otherwise, assume the following:
+		\begin{assmplist}
+			\item Inner product spaces will be over $K$.
+			
+			\item $V$, $W$ will denote inner product spaces and $\mathscr H$, a Hilbert space.
+			
+			\item Subspaces of \IPS{s} will be considered \IPS{s}.
+			
+			\item If $X$ is an inner product space and $x\in E$, then we'll use $\norm x := \sqrt{\iprd{x, x}}$. (See \myRef{COR: norm due to inner prod}.)
+			
+			\item Inner product spaces will be considered \NLS under the induced norm (see \myRef{COR: norm due to inner prod}).
+		\end{assmplist}
+	\end{conv}
+
+\section{Basics}
+
+	\begin{rmk}
+		Inner product is always required to take values in the base field of the vector space since we want $\iprd{x, y} z$ to always make sense. Many proofs will depend on this faculty: See for instance, the proof of Cauchy-Schwarz (\myRef{PRP: cauchy-schwarz}).
+	\end{rmk}
+	
+	For $x, y\in V$, we have $\norm{x + y}^2 = \norm{x}^2 + 2\Re\iprd{x, y} +  \norm{y}^2$. This yields:
+	
+	\begin{lem}[Parallelogram law and polarization]
+		Let $x, y\in V$. Then we have the parallelogram law:
+		\[
+		\norm{x + y}^2 + \norm{x - y}^2 = 2\norm{x}^2 + 2\norm{y}^2\addtag\label{EQ: parallelogram law}
+		\]
+		We also have the polarization identities: If $K = \mathbb R$, then
+		\begin{subequations}\label{EQ: polarization}
+			\begin{gather}
+				\iprd{x, y} = \frac{\norm{x + y}^2 - \norm{x - y}^2}{4}
+				\intertext{and if $K = \mathbb C$, then}
+				\iprd{x, y} = \frac{\norm{x + y}^2 - \norm{x - y}^2}{4} + i\frac{\norm{x + iy}^2 - \norm{x - iy}^2}{4}\text.
+			\end{gather}
+		\end{subequations}
+	\end{lem}
+	
+	\begin{prp}[Cauchy-Schwarz]\label{PRP: cauchy-schwarz}
+		For $x, y\in V$, we have $\abs{\iprd{x, y}}\le \norm x\norm y$ with equality holding iff $x$, $y$ are linearly dependent.
+	\end{prp}
+	
+	\begin{proof}
+		\Wlogg, let $y\ne 0$. Now, simply observe that\footnote{Note that $\frac{\iprd{x, y}}{\norm{y}^2}$ is the ``projection'' of $x$ on $y$.} $0 \le \Bigl\Vert x - \frac{\iprd{x, y}}{\norm{y}^2} y\Bigr\Vert^2 = \norm{x}^2 - \frac{\abs{\iprd{x, y}}^2}{\norm{y}^2}$ with equality holding iff $x = \frac{\iprd{x, y}}{\norm{y}^2}y$.
+	\end{proof}
+	
+	This gives the triangle inequality for $\norm\cdot$, so that:
+	
+	\begin{cor}\label{COR: norm due to inner prod}
+		$\norm\cdot$ defines a norm on $V$.
+	\end{cor}
+	
+	Now we prove a converse:
+	
+	\begin{prp}
+		Any norm that satisfies the parallelogram law (\myRef{EQ: parallelogram law}) comes from an inner product.
+	\end{prp}
+	
+	\begin{proof}
+		Define $\iprd{\cdot, \cdot}$ using polarization (\myRef{EQ: parallelogram law}). We first show that this indeed defines an inner product, and then show that the norm that this inner product induces is nothing but what we started with. The only hard part is showing the linearity of $\iprd{\cdot, \cdot}$ in the first argument.
+		
+		Additivity: Using \uline{parallelogram law}, verify that $\iprd{x, z} + \iprd{y, z} = \iprd{x + y, 2z}/2$. Thus it suffices to show that $\iprd{u, 2v} = 2\iprd{u, v}$. Putting $x\to u + v$ and $y\to v$ \uline{in \mbox{\myRef{EQ: parallelogram law}}}, get
+		\[
+		\norm{u + 2v}^2 + \norm{u}^2 = 2\norm{u + v}^2 + 2\norm{v}^2
+		\]
+		in which putting $v\to -v$ yields
+		\[
+		\norm{u - 2v}^2 + \norm{u}^2 = 2\norm{u - v}^2 + 2\norm{v}^2\text.
+		\]
+		Subtracting these, yield
+		\[
+		\norm{u + 2v}^2 - \norm{u - 2v}^2 = 2\norm{u + v}^2 - 2\norm{u - v}^2
+		\]
+		which is the content of $\iprd{u, 2v} = 2\iprd{u, v}$.
+		
+		Homothety: Conclude that $\iprd{rx, y} = r\iprd{x, y}$ for any rational $r$. Then use continuity of the map $\alpha\mapsto \iprd{\alpha x, y}$ to deduce that it remains valid even for real $r$'s. Finally observe that if $K = \mathbb C$, then $\iprd{ix, y} = i\iprd{x, y}$ and thus validity extends to complex $r$'s as well.
+	\end{proof}
+	
+	\begin{rmk}
+		The only place where the parallelogram law is used is in proving the additivity. Except homothety, all the reasoning has been ``algebraic''.
+	\end{rmk}
+	
+	Thus we get a correspondence:
+	
+	\begin{cor}
+		On any vector space $V$ over $K$, we have the following correspondence:
+		\[
+		\left\{ 
+		\begin{gathered}
+			\text{inner products on $V$}
+		\end{gathered}
+		\right\}
+		\longleftrightarrow
+		\left\{
+		\begin{gathered}
+			\text{norms on $V$ satisfying}\\
+			\text{the parallelogram law}
+		\end{gathered}
+		\right\}
+		\]
+	\end{cor}
+	
+	\begin{comment}
+	Here are some helpful lemmas to be used later:
+	
+	\begin{lem}
+		If $\{x_0\}^\perp$ is dense in $V$, then $x_0 = 0$.
+	\end{lem}
+	
+	\begin{proof}
+		Let $\epsilon > 0$. Since \uline{$E$ is dense}, take a $y\perp x_0$ such that $\norm{y - x_0} < \epsilon$. Now, $\norm{x_0}^2 = \iprd{x_0, x_0 - y} + \iprd{x_0, y} = \iprd{x_0, x_0 - y}\le \norm{x_0}\norm{x_0 - y}\le \epsilon\norm{x_0}\wimplies \norm{x_0}\le\epsilon$.
+	\end{proof}
+	
+	\begin{lem}
+		Let $x_0, y_0\in V$ and $E := \{z\in V : z\perp x_0\implies z\perp y_0\}$ be dense in $V$. Then $y_0$ is a multiple of $x_0$.
+	\end{lem}
+	
+	\begin{proof}
+		Let 
+	\end{proof}
+	\end{comment}
+	
+	
+\section{Orthogonal Complements and Projections}
+
+	Let $x, y\in V$. Then $x$ is \stb \defn{orthogonal} or \defn{perpendicular} to $y$, denoted $x\perp y$ iff $\iprd{x, y} = 0$. For any $E\subseteq V$, we define the \defn{orthogonal complement} $E^\perp$ of $E$ to be the set of all the vectors of $V$ that are orthogonal to each vector in $E$.
+	
+	\begin{lem}[Pythagoras]
+		For orthogonal vectors $x$, $y$ in $V$, we have $\norm{x + y}^2 = \norm{x}^2 + \norm{y}^2$.
+	\end{lem}
+	
+	Since $E^\perp = \cap_{y\in E}\{x\in V : \iprd{x, y} = 0\}$, we have:
+	
+	\begin{lem}
+		Orthogonal complements are closed subspaces.
+	\end{lem}
+	
+	In the context of \IPS{s}, we call the vectors of best approximations as \defn{projections}.
+	
+	\begin{prp}[Characterizing projections on subspaces]\label{PRP: proj's on subspaces}
+		Let $M$ be a subspace of $V$ and $x_0\in V$. Then for $y_0\in M$, \tfae:
+		\begin{mylist}
+			\item\label{PRPi: proj's on subspaces} $y_0 - x_0\in M^\perp$.
+			\item\label{PRPii: proj's on subspaces} $y_0$ is a projection of $x_0$ onto $M$.
+		\end{mylist}
+	\end{prp}
+	
+	Note that \ref{PRPii: proj's on subspaces} just says that $\norm{y_0 - x_0} = \inf_{y\in M} \norm{y - x_0}$.
+	
+	\begin{proof}
+		\ref{PRPi: proj's on subspaces} $\Rightarrow$ \ref{PRPii: proj's on subspaces}: If $y\in M$, then $\norm{y - x_0}^2 = \norm{y - y_0}^2 + \norm{y_0 - x_0}^2$. (Since \uline{$M$ is a subspace}, $y - y_0\in M$ and is thus perpendicular to $y_0 - x_0$.)
+		\myMargin{Add diagram.}
+		
+		\ref{PRPii: proj's on subspaces} $\Rightarrow$ \ref{PRPi: proj's on subspaces}: Let $y\in M$. \Wlogg, let $\norm y = 1$ (since \uline{$M$ is a subspace}). Now, $\norm{y_0 - x_0}\le \norm{y_0 - x_0 - \iprd{y_0 - x_0, y} y}$ (since $M$ is a subspace, $y_0 - \iprd{y_0 - x_0, y} y\in M$) $\wimplies$ $\abs{\iprd{y_0 - x_0, y}}^2 = 0\wimplies y_0 - x_0\perp y$.
+		\myMargin{Add diagram.}
+	\end{proof}
+	
+	We now ask for uniqueness of projections:
+	
+	\begin{prp}
+		Any vector of an \IPS has at most one projection on a convex subset of it.
+	\end{prp}
+	
+	\begin{proof}
+		Let $E$ be the set under consideration and $x_0$ the vector to be projected. Note that translations respect projections and convexity. Thus, \wlogg, take $x_0 = 0$.\footnote{Note that we couldn't reduce the analysis similarly in the proof of \ref{PRP: proj's on subspaces} since translations don't preserve ``being a subspace''.}
+		Set $\delta := \inf_{y\in E} \norm y$ and take $y_1, y_2\in E$ with $\norm{y_1} = \delta = \norm{y_2}$. Then \uline{by the parallelogram law},
+		we have
+		\begin{align*}
+			\norm{y_1 - y_2}^2 & = 2\norm{y_1}^2 + 2\norm{y_2}^2 - \norm{y_1 + y_2}^2\\
+			& \le 4\delta^2 - 4\biggl\| \frac{y_1}{2} + \frac{y_2}{2} \biggr\|^2\\
+			& \le 0
+		\end{align*}
+		where the last inequality follows since $y_1/2 + y_2/2\in E$ as \uline{$E$ is convex}.
+	\end{proof}
+	
+	\begin{rmk}
+		\begin{rmklist}
+			\item The necessity of convexity is evident by considering an annulus. However, full convexity is not really required: We just need that $E$ is closed under taking midpoints.
+			
+			\item Necessity of the parallelogram law: Consider $\mathbb R^2$ and take $E := \{(x, y) : y\ge 1\}$. Then all the points $(x, 1)$ with $\abs x\le 1$ are projections of $0$ onto the convex $E$.
+		\end{rmklist}
+	\end{rmk}
+	
+	Thus, we can talk of \defn{projection functions onto convex subsets}. Since subspaces are convex, by \myRef{PRP: proj's on subspaces}, we get:
+	
+	\begin{cor}
+		If existent, the projection onto a subspace is linear.
+	\end{cor}
+	
+	Now, for the existence of projections:
+	
+	\begin{thm}\label{THM: proj's in Hilbert spaces}
+		Any vector of a Hilbert space\myMargin{Show necessity of Hilbert-ness.}
+		can be projected onto a nonempty closed convex subset of it.
+	\end{thm}
+	
+	\begin{proof}
+		Let $E$ be the subset in consideration. Since translations are \homeo{s} that preserve projections and convexity, we can \wlogg take the vector to be projected to be $0$. We thus need to find a vector of smallest norm in $E$.
+		
+		Set $\delta := \inf_{y\in E}\norm y$ (which is finite since \uline{$E\ne\emptyset$}). For $n\ge 1$, choose
+		\myMargin{\AC used.}
+		$y_n\in E$ such that $\norm{y_n}^2 < \delta^2 + 1/n$. Now, by \uline{parallelogram law},
+		\myMargin{Is parallelogram law required?}
+		\begin{align*}
+			\norm{y_m - y_n}^2 & = 2\norm{y_1}^2 + 2\norm{y_2}^2 - \norm{y_1 + y_2}^2\\
+			& < 4\delta^2 + 2\biggl( \frac{1}{m} + \frac{1}{n} \biggr) - 4\biggl\| \frac{y_1}{2} + \frac{y_2}{2} \biggr\|^2\\
+			& \le 2\biggl( \frac{1}{m} + \frac{1}{n} \biggr)
+		\end{align*}
+		where the last inequality follows as before due to \uline{convexity of $E$}. Thus, $(y_n)$ is Cauchy. Since $E$ is a \uline{closed subset} of a \uline{Hilbert space}, $(y_n)$ converges to some $y\in E$. Now, $\norm{y}^2 = \lim_n \norm{y_n}^2\le \delta^2$ $\wimplies$ $\norm y = \delta$ as required.
+	\end{proof}
+	
+	\begin{rmk}
+		\begin{rmklist}
+			\item Convexity is not required for finite dimensions for we can use Heine-Borel
+			\myMargin{Prove Heine-Borel.}
+			to find a vector of smallest length inside closed nonempty $E$.
+			
+			\item To show necessity of convexity (in infinite dimensions), consider $(1 + 1/n)e_n$'s for $n = 1, 2, \ldots$ where $e_n$'s are orthonormal.
+			
+			\item Again, not the full power of convexity is used, just closure under taking midpoints; however, closure together with this property implies convexity.
+		\end{rmklist}
+	\end{rmk}
+	
+	\begin{comment}
+		\begin{dgrs}
+		\begin{lem}
+			\st{Let $x_0, z_0\in V$ and $E := \{x\in V : \iprd{x, y_0} = 0\implies\iprd{x, z_0} = 0\}$ be dense in $V$. Then $z_0$ is a multiple of $y_0$.}
+		\end{lem}
+		
+		\begin{prp}\label{PRP: necessity of hilbert-ness in proj's}
+			Let $M$ be a dense subspace of $\mathscr H$ and $z_0\in \mathscr H\setminus M$. Then $N := M\cap \{z_0\}^\perp$ is a closed convex subset of $M$ and yet no vector in $M\setminus N$ can be projected onto it.
+		\end{prp}
+		
+		\begin{dgrsProof}
+			Suppose $y_0$ is a projection of $x_0\in M\setminus N$ onto $N$. Then $y_0 - x_0\in N^\perp$ by \ref{PRP: proj's on subspaces} so that for every $w\in M$, we have $\iprd{w, y_0 - x_0} = 0$ whenever $\iprd{w, z_0} = 0$. Since \uline{$M$ is dense}, $y_0 - x_0$ is a multiple of $z_0$, and hence $0$ (since $z_0\notin M$ whereas $y_0, x_0\in M$) $\wimplies$ $x_0 = y_0\in M$, a contradiction.
+		\end{dgrsProof}
+	\end{dgrs}
+	\end{comment}
+	
+	\begin{cor}[Orthogonal decomposition of Hilbert spaces]\label{COR: orth decomp}
+		Let $M$ be a closed subspace of $\mathscr H$. Then
+		\myMargin{Show necessity of
+			\begin{enumerate*}
+				\item Hilbert-ness, and
+				\item closure of $M$.
+		\end{enumerate*}}
+		\[
+		\mathscr H = M\oplus M^\perp\text.
+		\]
+	\end{cor}
+	
+	\begin{proof}
+		Let $x\in \mathscr H$. By \myRef{THM: proj's in Hilbert spaces} (\uline{$M$ is closed} and convex (since \uline{$M$ a subspace}) and \uline{$\mathscr H$ Hilbert}), pick a projection $y$ of $x$ in $M$. By \myRef{PRP: proj's on subspaces} (\uline{$M$ a subspace}), $y - x\in M^\perp$ so that $x = y + (x - y)\in M + M^\perp$.
+		
+		For uniqueness, let $x_1, x_2\in M$ and $y_1, y_2\in M^\perp$ such that $x_1 + y_1 = x_2 + y_2\wimplies M\ni x_1 - x_2 = y_2 - y_1\in M^\perp\text{ (since \uline{$M$ a subspace})}\wimplies x_1 - x_2, y_2 - y_1\in M\cap M^\perp = \{0\}\wimplies x_1 = x_2\text{ and } y_1 = y_2$.
+	\end{proof}
+	
+	
+	
+	\begin{cor}
+		For any subset $E$ of $\mathscr H$, we have
+		\myMargin{Show necessity of completeness.}
+		\[
+		(E^\perp)^\perp = \clos{\Span E}\text.
+		\]
+	\end{cor}
+	
+	\begin{proof}
+		``$\supseteq$'': \LHS is a closed subspace and $E\subseteq \LHS$.
+		
+		``$\subseteq$'': Let $x\in\LHS$. Set $M := \clos{\Span E}$ and by \myRef{COR: orth decomp}, let $y\in M$ such that $y - x\in M^\perp\which\subseteq E^\perp \wimplies \iprd{y - x, x} = 0\wimplies \norm{y - x} = 0$ (since $y\perp y - x$) $\wimplies x = y\which\in M$.
+	\end{proof}
+	
+	\begin{rmk}
+		Note that ``$\supseteq$'' holds irrespective of completeness.
+	\end{rmk}
+	
+
+
+\section{Adjoints}
+
+	Every vector $x\in V$ induces a continuous linear functional $\iprd{\cdot, x}\in V^*$. It's easy to see that this is an injective anti-linear isometry $V\to V^*$. The following says that for Hilbert spaces, it's surjective as well:
+	
+	\begin{thm}[Riesz representation]
+		Continuous linear functionals on a Hilbert space\myMargin{Show necessity of Hilbert-ness.}
+		are obtained from inner products.
+	\end{thm}
+	
+	\begin{proof}
+		Let $\ell\in \mathscr H^*$. If $\ker\ell = \mathscr H$, then $\ell = 0 = \iprd{\cdot, 0}$. Otherwise, $(\ker\ell)^\perp\ne 0$:
+		\begin{subproof}
+			Since \uline{$\mathscr H$ Hilbert} and $\ker\ell$ a closed subspace (as \uline{$\ell$ continuous linear}), $\mathscr H = (\ker\ell)\oplus(\ker\ell)^\perp$.
+		\end{subproof}
+		Thus, take a unit vector $e\in(\ker\ell)^\perp$. Now, take an arbitrary $x\in \mathscr H$. Then $x - \frac{\ell(x)}{\ell(e)} e\in\ker\ell$ (since \uline{$\ell$ linear}) so that it's perpendicular to $e$ $\wimplies$ $\ell(x) = \iprd{x, \clos{\ell(e)} e}$.
+	\end{proof}
+	
+	\begin{rmk}
+		Note that the proof relies solely on finding a nonzero vector in $(\ker\ell)^\perp$.
+	\end{rmk}
+	
+	\begin{cor}
+		$\mathscr H^*$ is isometrically and anti-linearly isomorphic to $\mathscr H$.
+	\end{cor}
+	
+	The \defn{adjoint} of a function $f\colon V\to W$ is a function $f^*\colon W\to V$ such that
+	\[
+	\iprd{f(x), y} = \iprd{x, f^*(y)}
+	\]
+	for all $x\in V$ and $y\in W$. If existent, such a function is clearly unique which justifies the notation. We enlist some immediate algebraic properties of adjoints:
+	
+	\begin{cor}
+		\leavevmode
+		\begin{mylist}
+			\item Let $f, g\colon V\to W$ admit adjoints. Then $f^*$ is linear and $f^*$, $f + g$, $\alpha f$ (for any scalar $\alpha$), $g\circ f$ admit adjoints:
+			\begin{align*}
+				(f^*)^* & = f\\
+				(f + g)^* & = f^* + g^*\\
+				(\alpha f)^* & = \clos\alpha f^*
+			\end{align*}
+			
+			\item Let $f\colon V_1\to V_2$ and $g\colon V_2\to V_3$ admit adjoints. Then $g\circ f$ also admits adjoint:
+			\[
+			(g\circ f)^* = f^*\circ g^*
+			\]
+			Thus, if $f$ is invertible with $f^{-1}$ admitting adjoint too,\myMargin{Inverse of an adoint-able function is adjoint-able?}
+			then $f^*$ is invertible with
+			\[
+			(f^{-1})^* = (f^*)^{-1}\text.
+			\]
+		\end{mylist}
+	\end{cor}
+	
+	\begin{rmk}
+		Hence, only linear maps can possibly admit adjoints.
+	\end{rmk}
+	
+	\begin{prp}
+		Let $T\in\mathcal L(V, W)$ admit adjoint. Then \tfh:
+		\begin{align*}
+			\norm{T^*} & = \norm T\\
+			\norm{T^* T} & = \norm{T}^2
+		\end{align*}
+	\end{prp}
+	
+	\begin{proof}
+		For any $y$, we have $\norm{T^*y}^2 = \iprd{T^*y, T^*y} = \iprd{TT^*y, y}\le \norm T\norm{T^*y}\norm y\wimplies \norm{T^*y}\le \norm T\norm y$. Thus $\norm{T^*}\le\norm T$. Putting $T\to T^*$ yields $\norm{T^*} = \norm T$.
+		
+		For second, we already have $\norm{T^*T}\le\norm{T^*}\norm T = \norm{T}^2$. Now, for any $x$, we have $\norm{Tx}^2 = \iprd{T^*Tx, x}\le \norm{T^*T}\norm{x}^2\wimplies\norm{Tx}\le \norm{T^*T}^{1/2}\norm x$.\myMargin{Taking square roots in $\mathbb R^*$.}
+		Thus $\norm T\le\norm{T^*T}^{1/2}$.
+	\end{proof}
+	
+	Thus adjoints of continuous linear maps are continuous. Now we talk about the existence of adjoints:
+	
+	\begin{thm}
+		Continuous linear maps between Hilbert spaces admit adjoints.
+	\end{thm}
+	
+	\begin{proof}
+		Let $T\in\mathcal L_c(\mathscr H, V)$. Fix a $y\in V$. Now, $x\mapsto \iprd{Tx, y}$ is a continuous linear functional on $\mathscr H$ (since \uline{$T$ continuous}) so that by Riesz (since \uline{$\mathscr H$ is Hilbert}), let $Sy$ be the unique vector in $\mathscr H$ such that $\iprd{Tx, y} = \iprd{x, Sy}$ for each $x\in\mathscr H$. This gives a function $S\colon V\to \mathscr{H}$, which is the required adjoint.
+	\end{proof}

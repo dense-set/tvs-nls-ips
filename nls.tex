@@ -1,0 +1,304 @@
+%=========Checkpoints=========%
+%
+% FIN DIM SUBSPACES ARE CLOSED
+
+\chapter{Normed Linear Spaces}
+
+\begin{conv}
+	Unless stated otherwise, assume the following:
+	\begin{assmplist}
+		\item A \NLS will be over $K$.
+		
+		\item A norm's codomain will be taken to be $[0, +\infty)$.
+		
+		\item $E$, $F$ will denote \NLS{s} and $\mathscr B$ will be reserved for a Banach space.
+		
+		\item Subspaces of \NLS{s} will be seen as \NLS{s}.
+		
+		\item A \NLS will also be considered a metric space under the induced metric, and also a \TVS (see \myRef{LEM: immediate facts on NLS}).
+		
+		% maybe put this in inner-prod.tex
+		\item Abusing notation, we'll use the same notation to denote the restriction to $\mathbb R\to\mathbb R$ of $\Re$, $\Im$, and complex conjugation.
+		
+		\item $\mathcal B(X, F)$ will denote the set of bounded functions $X\to F$ for a set $X$. Further, for $f\in\mathcal B(X, F)$, we'll use $\norm{f}_\infty := \sup_{x\in X}\norm{f(x)}$. $\mathcal B(X, F)$ will be seen as a \NLS (see \myRef{LEM: immediate facts on NLS}.)
+		
+		\item $\mathcal C_b(X, F)$ will be the set of bounded continuous functions for a \TVS $X$, which will be seen as a \NLS (see \myRef{LEM: immediate facts on NLS}.)
+		
+		\item For $T\in\mathcal L(E, F)$, we'll set $\norm T := \sup_{\norm x\le 1}\norm{Tx}$.\footnote{Actually, one can extend this definition to homogenous functions to still yield fruitful consequences (see the remark after \myRef{PRP: norm on L_c(E; F)}). Note that homogenous functions of a fixed degree also form a vector space.}
+		
+		\item $\mathcal L_c(E, F)$ will be seen as a \NLS (see \myRef{PRP: norm on L_c(E; F)}).
+	\end{assmplist}
+\end{conv}
+
+
+
+\section{Basics}
+
+	First, some immediate trivialities:
+
+	\begin{lem}\label{LEM: immediate facts on NLS}
+		\leavevmode
+		\begin{mylist}
+			\item\label{LEMi: immediate facts on NLS} A \NLS is a \TVS. In fact, addition is Lipschitz continuous and multiplication is Cauchy-regular\footnote{
+				Remember, finite product of metric spaces (and hence \NLS{s}) are considered under any of the uniformly equivalent $p$-norm metrics.
+			}.
+			
+			\item Norm is Lipschitz continuous.
+			
+			\item\label{LEMiii: immediate facts on NLS} $\clos{B_r(x)} = D_r(x)$ for any $x\in E$.
+			
+			\item $\norm\cdot_\infty$ defines a norm on $\mathcal B(X, F)$, convergence under which coincides with uniform convergence.
+			
+			\item\label{LEMv: immediate facts on NLS} $\mathcal C_b(X, F)$ is a closed subspace of $\mathcal B(X, F)$ for any set $X$.
+		\end{mylist}
+	\end{lem}
+	
+	\begin{proof}
+		For \ref{LEMi: immediate facts on NLS}, use $1$-norm metric on $X\times X$ for addition and use the usual trickery for multiplication.
+		
+		For \ref{LEMiii: immediate facts on NLS}, note that for any $y\in D_r(x)$, the segment $[x; y)$ contains points common to $B_r(x)$ and $B_\epsilon(y)$ for $\epsilon$ however small.
+		
+		For \ref{LEMv: immediate facts on NLS}, just note that uniform limit of continuous functions is continuous.
+	\end{proof}
+	
+	\begin{rmk}
+		Note that scalar multiplication needn't even be uniformly continuous, let alone Lipschitz; for instance, consider the multiplication on $\mathbb R$: Take $x_n := (\sqrt n, \sqrt n)$ and $y_n := (\sqrt{n + 1}, \sqrt{n + 1})$. Then under the metric on $\mathbb R\times\mathbb R$ due to $\infty$-norm, $d(x_n, y_n) = \sqrt{n - 1} - \sqrt n = (\sqrt{n + 1} + \sqrt n)^{-1}\to 0$ as $n\to \infty$ and yet $d(n, n + 1) = 1\not\to 0$.
+		
+		However, scalar multiplication by a fixed scalar is trivially Lipschitz.
+	\end{rmk}
+	
+	
+	\begin{prp}[Norm on $\mathcal L_c(E, F)$]\label{PRP: norm on L_c(E; F)}
+		Let $T\in\mathcal L(E, F)$. Then \tfh:
+		\begin{mylist}
+			\item\label{PRPi: norm on L_c(E; F)}
+			$\sup_{\norm x < 1}\norm{Tx}
+			 = \sup_{\norm x\le 1}\norm{Tx}
+			 \stackrel{(*)}{=}
+			 \sup_{\norm x = 1}\norm{Tx}
+			 = \sup_{x\ne 0}\frac{\norm{Tx}}{\norm x}$ where $(*)$ holds for $E\ne 0$.
+			
+			\item\label{PRPii: norm on L_c(E; F)} 
+			$\norm T$ is the smallest $M\ge 0$ such that $\norm{Tx}\le M\norm x$ for all $x\in E$.
+			
+			\item\label{PRPiii: norm on L_c(E; F)} 
+			\Tfae:
+			\begin{mylist}
+				\item\label{PRPiii.a: norm on L_c(E; F)} $T$ is continuous.
+				\item\label{PRPiii.b: norm on L_c(E; F)} $T$ is continuous at $0$.
+				\item\label{PRPiii.c: norm on L_c(E; F)} $\norm T < +\infty$.
+			\end{mylist}
+			
+			\item\label{PRPiv: norm on L_c(E; F)} 
+			$\norm\cdot$ defines a norm on $\mathcal L_c(E, F)$.\footnote{In fact, it is an \href{https://math.stackexchange.com/a/1221851/673223}{extended norm} on $\mathcal L(E, F)$.}
+			
+			\item\label{PRPv: norm on L_c(E; F)} 
+			If $G$ is another \NLS and $S\in\mathcal L(F, G)$, then $\norm{ST}\le \norm S\norm T$.
+		\end{mylist}
+	\end{prp}
+	
+	\begin{proof}
+		\ref{PRPiv: norm on L_c(E; F)},
+		\ref{PRPv: norm on L_c(E; F)}
+		are easy consequences of
+		\ref{PRPi: norm on L_c(E; F)},
+		\ref{PRPii: norm on L_c(E; F)},
+		\ref{PRPiii: norm on L_c(E; F)}.
+		\begin{mylist}
+			\item The first equality: Let $0 < t < 1$. Then $\RHS = \sup_{\norm y\le t}\norm{T(y/t)}
+			= \sup_{\norm y\le t}(\norm{Ty}/t)$ (since \uline{$T$ linear})
+			$ = (1/t)\sup_{\norm y\le t}\norm{Ty}\le \LHS/t$.
+			\myMargin{
+				Do stuff on $\mathbb R^*$. Also that bit on monotone functions and taking $\sup$'s.
+			} Now take $t\to 1$.
+			
+			The second equality: We show that $\LHS\le\RHS$. Let $\norm x\le 1$. If $x = 0$, then $\norm{Tx} = 0\le \RHS$ (since \uline{$E\ne 0$} and \uline{$T$ linear}). If $x\ne 0$, then $\norm{Tx} = \Bigl\| T\frac{x}{\norm x} \Bigr\|\norm x$ (since \uline{$T$ linear}) $\le \Bigl\| T\frac{x}{\norm x} \Bigr\|\le \RHS$.
+			
+			The third equality: Just note that $\Bigl\{\frac{\norm{Tx}}{\norm x} : x\ne 0\Bigr\} = \{\norm{Tx} : \norm x = 1\}$ (since \uline{$T$ linear}).
+			
+			
+			\item $\norm T$ is such: Firstly, $\norm T\ge \norm{T0} = 0$ (since \uline{$T$ linear}). Now, let $x\in E$. \Wlogg, let $x\ne 0$ and hence $E\ne 0$, so that \uline{by {\ref{PRPi: norm on L_c(E; F)}}}, $\norm T\ge \frac{\norm{Tx}}{\norm{x}}$.
+			
+			$\norm T$ is smallest such: Let $M\ge 0$ be such. If $E = 0$, then $\norm T = 0\le M$, and if $E\ne 0$, then \uline{by {\ref{PRPi: norm on L_c(E; F)}}} $\norm T = \sup_{x\ne 0}\frac{\norm{Tx}}{\norm x}\which\le M$.
+			
+			\item \ref{PRPiii.b: norm on L_c(E; F)} $\Rightarrow$ \ref{PRPiii.c: norm on L_c(E; F)}: Since $T0 = 0$ (\uline{$T$ linear}), take $\delta > 0$ such that $\norm{Tx} < 1$ whenever $\norm x < \delta$. Now \uline{by {\ref{PRPi: norm on L_c(E; F)}}}, $\norm T 
+			 = \sup_{\norm x < 1}\norm{Tx} 
+			 = \sup_{\norm x < \delta}\norm{T(x/\delta)} 
+			 = (1/\delta)\sup_{\norm x < \delta}\norm{Tx}$ (since \uline{$T$ linear}) $
+			 \le 1/\delta$.
+			 
+			\ref{PRPiii.c: norm on L_c(E; F)} $\Rightarrow$ \ref{PRPiii.a: norm on L_c(E; F)}: Just note that $\norm{Ty - Tx} 
+			 = \norm{T(y - x)}$ (since \uline{$T$ linear}) $
+			 \le \norm T\norm{y - x}$.\qedhere
+		\end{mylist}
+	\end{proof}
+	
+	\begin{rmk}
+		Apart from the usage of additivity in \ref{PRPiii: norm on L_c(E; F)}'s ``\ref{PRPiii.b: norm on L_c(E; F)} $\Rightarrow$ \ref{PRPiii.a: norm on L_c(E; F)}'', full power of linearity is not used, just homothety. (In fact, a similar analysis can be carried out even for general homogenous functions.)
+	\end{rmk}
+	
+	
+	\begin{lem}
+	A \NLS is complete $\iff$ convergence in norm implies convergence.
+	\end{lem}
+	
+	\begin{proof}
+	``$\Rightarrow$'': Since convergence in norm implies Cauchy.
+	
+	``$\Leftarrow$'': Let $(x_i)$ be Cauchy. Define $y_i := x_{i + 1} - x_i$ and consider the telescoping series $\sum_i y_i$, which is convergent $\iff$ $(x_i)$ is convergent. Thus it suffices to have that $\sum_i y_i$ be convergent in norm, which can be guaranteed by assuming \wlogg that $\norm{x_{i + 1} - x_i}\le 1/2^i$ (since a Cauchy sequence is \cgt if any of its subsequences converge).
+	\end{proof}
+	
+	
+	
+	
+\section{Completion of Normed Linear Spaces}
+
+	A \defn{completion} of $E$ is a linear isometry $\iota\colon E\to\hat E$ into a Banach space $\hat E$ such that any linear isometry $E\to F$ into a Banach space $F$ factors uniquely through a linear isometry via $\iota$:
+	\[
+	\begin{tikzcd}[column sep=small]
+		E\ar[rr]\ar[dr, "\iota"'] & & F\\
+		& \hat E\ar[ur, dashed] &
+	\end{tikzcd}
+	\]
+	
+	
+	\begin{cor}
+		$\id\colon\mathscr B\to\mathscr B$ is a completion of $\mathscr B$.
+	\end{cor}
+	
+	
+	The following lemma gives a means to induce a Banach space structure on a complete 
+	
+	\begin{lem}\label{LEM: endowing a Banach space structure on a complete metr sp given an NLS structure on a dense subset}
+		Let $E$ be a dense subset of a complete metric space $X$ with its norm being uniformly equivalent to the metric inherited from $X$. Then there's a unique Banach space structure on $X$, topologically equivalent to the original metric on $X$, that extends the \NLS structure on $E$. Further, the extended norm is uniformly related to the original metric on $X$ in the same way as the original norm was to the restricted metric on $E$.
+	\end{lem}
+	
+	\begin{proof}
+		Firstly, we show the uniqueness: Let $X$ admit a Banach space structure as said. Denote $X$ with its original metric topology by $X_\text{mtr}$ and $X$ with the topology due to the extended norm by $X_\text{nrm}$.\footnote{
+			Thus, $X_\text{mtr}$, $X_\text{nrm}$ are topological spaces.
+		} Since extended addition, scalar multiplication and norm are continuous functions \resp on $X_\text{nrm}\times X_\text{nrm}$, $K\times X_\text{nrm}$ and $X_\text{nrm}$ to Hausdorff domains ($X_\text{nrm}$, $X_\text{nrm}$ and $[0, +\infty)$ \resp), which are determined on dense subsets thereof ($E\times E$, $K\times E$ and $E$ \resp, for \uline{$E$ is dense in $X_\text{mtr}\which = X_\text{nrm}$}), these are uniquely determined.
+		
+		Next we show existence: Denote $E$ with the metric induced by its norm by $E_\text{nrm}$, and $E$ with the metric inherited from $X$ by $E_X$.\footnote{
+			Hence, $E_\text{nrm}$, $E_X$ are metric space.
+		} Addition, scalar multiplication and norm on $E$ admit (unique) continuous extensions to $X$ because of the following facts:
+		\begin{mylist}
+			\item \uline{$X$ is complete} and so is $[0, +\infty)$.
+			
+			\item Addition, scalar multiplication and norm are Cauchy-regular on $E_\text{nrm}\times E_\text{nrm}\to E_\text{nrm}$, $K\times E_\text{nrm}\to E_\text{nrm}$, and $E_\text{nrm}\to[0, +\infty)$ \resp.
+			
+			\item Since \uline{$E_\text{nrm}$ is uniformly equivalent to $E_X$}, the above holds with ``$E_\text{nrm}$'' replaced with ``$E_\text{X}$''.\footnote{
+				``Finite products of uniformly equivalent metrics are uniformly equivalent'': Use the fact that for $i = 1, \ldots, n$, if $\alpha_i\abs{y_i}\le \abs{x_i}\le\beta_i\abs{y_i}$ for $\alpha_i, \beta_i > 0$, then $(\min_i \alpha_i) \norm{y}_\infty
+				\le\norm{x}_\infty
+				\le(\max_i\beta_i) \norm{y}_\infty$.
+			}
+			
+			\item \uline{$E$ is dense in $X$} (so that $E\times E$ and $K\times E$ are \resp dense in $X\times X$ and $K\times X$).
+		\end{mylist}
+		That these extended functions endow $X$ with a \NLS structure is straightforward to verify by representing generic \elt{s} of $X$ as limits of sequences in $E$,\myMargin{
+			\CC used; avoidable if $X$ is $E$ is countable.
+		} using continuity of the extended functions, and the \NLS structure of $E$. It's clear that this will then be an extension of the \NLS structure of $E$.
+		
+		Finally, the preservation of uniform relation is also shown similarly, and from this it follows that $X_\text{metr}$ is uniformly equivalent to $X_\text{nrm}$ so that completeness of $X_\text{metr}$ implies that of $X_\text{nrm}$, concluding that the extended functions above indeed form a Banach space extension of $E$.
+	\end{proof}
+	
+	\begin{rmk}
+		Note that for uniqueness, completeness of $X$ wasn't required.
+	\end{rmk}
+	
+	
+	\begin{prp}
+		Any metric completion of $E$ admits a Banach space structure becoming a \NLS completion of $E$, with norm recovering the metric.
+	\end{prp}
+	
+	\begin{proof}
+		Let $\iota\colon E\to\hat E$ be a metric space completion of $E$. Now, transport the \NLS structure of $E$ to $\iota(E)$ via $\iota$. Consider the following facts:
+		\begin{mylist}
+			\item $\hat E$ is complete.
+			\item $\iota(E)$ is dense in $\hat E$.
+			\item $d(\iota(x), \iota(y)) = d(x, y) = \norm{x - y}$ for any $x, y\in X$.
+		\end{mylist}
+		Due to \myRef{LEM: endowing a Banach space structure on a complete metr sp given an NLS structure on a dense subset}, we have that $\hat X$ admits a Banach space structure extending the \NLS structure on $\iota(E)$ such that $d(\hat x, \hat y) = \norm{\hat x - \hat y}$.\footnote{
+			We have abused notation, denoting the extended norm by the same symbol.
+		} That $\iota$ is linear follows from definition of the \NLS structure on $\iota(E)$. We now verify the universal property.
+		
+		Let $f\colon E\to F$ be a linear isometry with $F$ complete. By the universal property of metric space completion, there exists a unique isometry $\tilde f$ factoring $f$ through $\iota$:
+		\[
+		\begin{tikzcd}[column sep=small]
+			E\ar[rr, "f"]\ar[dr, "\iota"'] & & F\\
+			& \hat E\ar[ur, dashed, "\tilde f"'] &
+		\end{tikzcd}
+		\]
+		It suffices to show that $\tilde f$ is linear, which follows by representing points in $\hat E$ as limits of sequences in $\iota(E)$\myMargin{
+			\CC used unless $E$ is countable.
+		} (for $\iota(E)$ is dense in $\hat E$), and using continuity of $\tilde f$ and linearity of $f$.
+	\end{proof}
+	
+	
+	\begin{cor}
+		Any \NLS admits a completion which is unique up to isometric \iso{s}.
+	\end{cor}
+	
+	
+
+\section{Applying BCT}
+	
+	\begin{prp}
+		A Banach space can't have a countably infinite Hamel dimension.
+	\end{prp}
+	
+	% FIN DIM SUBSPACES ARE CLOSED
+	\begin{proof}
+		Let $e_1, e_2, \ldots$ form a Hamel basis for $\mathscr B$. Then $\mathscr B = \bigcup_{i = 0}^\infty\Span\{e_1, \ldots, e_i\}$. By Baire's category (since \uline{$\mathscr B$ is complete}),\myMargin{
+			Are finite-dimensional subspaces of a TVS closed?
+		} some $\Span\{e_1, \ldots, e_i\}$ contains a ball, say $B_r(0)$, \wlogg. But then $te_{n + 1}\in B_r(0)\which\subseteq \Span\{e_1, \ldots, e_n\}$ for small enough $t$, a contradiction.
+	\end{proof}
+	
+	\begin{thm}[Open mapping]
+		Any continuous surjective linear map between Banach spaces is open.
+	\end{thm}
+	
+	\begin{proof}
+		Let $T\in\mathcal L_c(\mathscr B, \mathscr B')$. It suffices to have that $B'_\epsilon(0)\subseteq T(B_1(0))$ for some $\epsilon > 0$:
+		\begin{subproof}
+			Let $U$ be open in $\mathscr B$ and $x\in U$. We find an $r > 0$ such that $B'_r(Tx)\subseteq T(U)
+			\wimpliedby B'_r(0)\subseteq T(U - x)
+			\wimpliedby B'_\epsilon(0)\subseteq T(\epsilon/r(U - x))$
+			where the last two implications follow since \uline{$T$ is linear}. Now, this is true if $B_1(0)\subseteq \epsilon/r(U - x)
+			\wimpliedby B_{r/\epsilon}(x)\subseteq U$, and a small enough $r$ can be chosen to ensure this.
+		\end{subproof}
+		
+		Since \uline{$T$ is surjective}, $\mathscr B' = \bigcup_n T(B_n(0))$. By Baire's category (since \uline{$\mathscr B'$ Banach}), let $B'_\delta(y_1)\subseteq \clos{T(B_n(0))}\wimplies B'_\delta(0)\subseteq \clos{T(B_{2n}(0))}$:
+		\begin{subproof}
+			We have $B'_\delta(0) = B'_\delta(y_1) - y_1
+			\subseteq B'_\delta(y_1) + B'_\delta(y_1)
+			\subseteq \clos{T(B_n(0))} + \clos{T(B_n(0))}
+			\subseteq \clos{T(B_n(0)) + T(B_n(0))}$ (see footnote\footnote{$\clos A + \clos B 
+						= +(\clos A\times\clos B)
+						= +(\clos{A\times B})
+						\subseteq \clos{+(A\times B)}
+						= \clos{A + B}$.})
+			$= \clos{T(B_n(0) + B_n(0))}$ (since \uline{$T$ is linear})
+			$= \clos{T(B_{2n}(0))}$.
+		\end{subproof}
+		
+		Since \uline{$T$ is linear}, we get $B'_{\epsilon}(0)\subseteq\clos{T(B_{1/2}(0))}$ for $\epsilon := \delta/4n$. Thus it suffices to show that $\clos{T(B_{1/2}(0))}\subseteq T(B_1(0))$:
+		\begin{subproof}
+			Let $y\in\LHS$. Then choose $x_1\in B_{1/2}(0)$ such that $y - Tx_1\in B'_{\epsilon/2}(0)\which\subseteq\clos{T(B_{1/4}(0))}$ (again using \uline{linearity of $T$}). Now, choose $x_2\in B_{1/4}(0)$ such that $y - Tx_1 - Tx_2\in B'_{\epsilon/4}(0)\which\subseteq\clos{T(B_{1/8}(0))}$ (again using \uline{linearity of $T$}), and so on\ldots\myMargin{\DC used.}
+			
+			Now, since \uline{$\mathscr B$ is Banach}, the series $\sum_i x_i$ converges to an $x\in B_1(0)$. Once again using \uline{linearity of $T$}, we get $\norm*{y - T\bigl(\sum_{i = 1}^n x_i\bigr)} < \epsilon/2^n$. Using \uline{continuity of $T$}, this finally yields $y = Tx$.\qedhere
+		\end{subproof}
+	\end{proof}
+	
+	\begin{rmk}
+		Necessity of surjectivity is easily seen. For linearity, think of a cubic polynomial $\mathbb {R\to R}$.\myMargin{
+			Necessity of continuity? completeness of domain? of codomain?
+		}
+	\end{rmk}
+	
+	\begin{cor}[Bounded inverse]
+		The inverse of an invertible continuous linear map between Banach spaces is continuous.
+	\end{cor}
+	
+	\begin{rmk}
+		content
+	\end{rmk}
