@@ -37,7 +37,6 @@
 	First, some immediate trivialities:
 
 	\begin{lem}\label{LEM: immediate facts on NLS}
-		\leavevmode
 		\begin{mylist}
 			\item\label{LEMi: immediate facts on NLS} A \NLS is a \TVS. In fact, addition is Lipschitz continuous and multiplication is Cauchy-regular\footnote{
 				Remember, finite product of metric spaces (and hence \NLS{s}) are considered under any of the uniformly equivalent $p$-norm metrics.
@@ -64,7 +63,7 @@
 	\begin{rmk}
 		Note that scalar multiplication needn't even be uniformly continuous, let alone Lipschitz; for instance, consider the multiplication on $\mathbb R$: Take $x_n := (\sqrt n, \sqrt n)$ and $y_n := (\sqrt{n + 1}, \sqrt{n + 1})$. Then under the metric on $\mathbb R\times\mathbb R$ due to $\infty$-norm, $d(x_n, y_n) = \sqrt{n - 1} - \sqrt n = (\sqrt{n + 1} + \sqrt n)^{-1}\to 0$ as $n\to \infty$ and yet $d(n, n + 1) = 1\not\to 0$.
 		
-		However, scalar multiplication by a fixed scalar is trivially Lipschitz.
+		However, scalar multiplication, keeping either coordinate fixed, is trivially Lipschitz.
 	\end{rmk}
 	
 	
@@ -138,6 +137,11 @@
 	\end{rmk}
 	
 	
+	\begin{cor}\label{COR: cont lin maps are Lip}
+		Any continuous linear map between \NLS{s} is Lipschitz.
+	\end{cor}
+	
+	
 	\begin{lem}
 	A \NLS is complete $\iff$ convergence in norm implies convergence.
 	\end{lem}
@@ -161,44 +165,36 @@
 	\end{tikzcd}
 	\]
 	
+	As for metric spaces, we also have another characterization of norm completion via denseness. (See \myRef{CORii: immed conseq's of denseness of img of completion} of \myRef{COR: immed conseq's of denseness of img of completion}.)
+	
 	
 	\begin{cor}
 		$\id\colon\mathscr B\to\mathscr B$ is a completion of $\mathscr B$.
 	\end{cor}
 	
 	
-	The following lemma gives a means to induce a Banach space structure on a complete 
+	The following lemma gives a means to induce a Banach space structure on a complete metric space from a \NLS which sits inside it as a dense subset.
 	
 	\begin{lem}\label{LEM: endowing a Banach space structure on a complete metr sp given an NLS structure on a dense subset}
-		Let $E$ be a dense subset of a complete metric space $X$ with its norm being uniformly equivalent to the metric inherited from $X$. Then there's a unique Banach space structure on $X$, topologically equivalent to the original metric on $X$, that extends the \NLS structure on $E$. Further, the extended norm is uniformly related to the original metric on $X$ in the same way as the original norm was to the restricted metric on $E$.
+		Let $E$ be a dense subset of a complete metric space $X$ with its norm recovering the metric inherited from $X$. Then there's a unique Banach space structure on $X$ that extends the \NLS structure on $E$, and recovers the metric.
 	\end{lem}
 	
 	\begin{proof}
-		Firstly, we show the uniqueness: Let $X$ admit a Banach space structure as said. Denote $X$ with its original metric topology by $X_\text{mtr}$ and $X$ with the topology due to the extended norm by $X_\text{nrm}$.\footnote{
-			Thus, $X_\text{mtr}$, $X_\text{nrm}$ are topological spaces.
-		} Since extended addition, scalar multiplication and norm are continuous functions \resp on $X_\text{nrm}\times X_\text{nrm}$, $K\times X_\text{nrm}$ and $X_\text{nrm}$ to Hausdorff domains ($X_\text{nrm}$, $X_\text{nrm}$ and $[0, +\infty)$ \resp), which are determined on dense subsets thereof ($E\times E$, $K\times E$ and $E$ \resp, for \uline{$E$ is dense in $X_\text{mtr}\which = X_\text{nrm}$}), these are uniquely determined.
+		Firstly, we show uniqueness: Let $X$ admit a Banach space structure as said. Denote $X$ with its original metric  by $X_\text{mtr}$ and $X$ with the metric due to the extended norm by $X_\text{nrm}$. Since extended addition, scalar multiplication and norm are continuous functions \resp on $X_\text{nrm}\times X_\text{nrm}$, $K\times X_\text{nrm}$ and $X_\text{nrm}$ to Hausdorff domains ($X_\text{nrm}$, $X_\text{nrm}$ and $[0, +\infty)$ \resp), which are determined on dense subsets $E\times E$, $K\times E$ and $E$ \resp (determined, because \uline{the Banach space structure on $X$ extends the \NLS structure of $E$}; dense, becasue \uline{$E$ is dense in $X_\text{mtr}\which = X_\text{nrm}$}), these are uniquely determined.
 		
-		Next we show existence: Denote $E$ with the metric induced by its norm by $E_\text{nrm}$, and $E$ with the metric inherited from $X$ by $E_X$.\footnote{
-			Hence, $E_\text{nrm}$, $E_X$ are metric space.
-		} Addition, scalar multiplication and norm on $E$ admit (unique) continuous extensions to $X$ because of the following facts:
+		Next we show existence: Denote $E$ with the metric induced by its norm by $E_\text{nrm}$, and $E$ with the metric inherited from $X$ by $E_\text{mtr}$. Addition, scalar multiplication and norm on $E$ admit (unique) continuous extensions to $X$ because of the following facts:
 		\begin{mylist}
 			\item \uline{$X$ is complete} and so is $[0, +\infty)$.
 			
 			\item Addition, scalar multiplication and norm are Cauchy-regular on $E_\text{nrm}\times E_\text{nrm}\to E_\text{nrm}$, $K\times E_\text{nrm}\to E_\text{nrm}$, and $E_\text{nrm}\to[0, +\infty)$ \resp.
 			
-			\item Since \uline{$E_\text{nrm}$ is uniformly equivalent to $E_X$}, the above holds with ``$E_\text{nrm}$'' replaced with ``$E_\text{X}$''.\footnote{
-				``Finite products of uniformly equivalent metrics are uniformly equivalent'': Use the fact that for $i = 1, \ldots, n$, if $\alpha_i\abs{y_i}\le \abs{x_i}\le\beta_i\abs{y_i}$ for $\alpha_i, \beta_i > 0$, then $(\min_i \alpha_i) \norm{y}_\infty
-				\le\norm{x}_\infty
-				\le(\max_i\beta_i) \norm{y}_\infty$.
-			}
+			\item Since \uline{$E_\text{nrm} = E_\text{mtr}$}, the above holds with ``$E_\text{nrm}$'' replaced with ``$E_\text{mtr}$''.
 			
 			\item \uline{$E$ is dense in $X$} (so that $E\times E$ and $K\times E$ are \resp dense in $X\times X$ and $K\times X$).
 		\end{mylist}
 		That these extended functions endow $X$ with a \NLS structure is straightforward to verify by representing generic \elt{s} of $X$ as limits of sequences in $E$,\myMargin{
-			\CC used; avoidable if $X$ is $E$ is countable.
-		} using continuity of the extended functions, and the \NLS structure of $E$. It's clear that this will then be an extension of the \NLS structure of $E$.
-		
-		Finally, the preservation of uniform relation is also shown similarly, and from this it follows that $X_\text{metr}$ is uniformly equivalent to $X_\text{nrm}$ so that completeness of $X_\text{metr}$ implies that of $X_\text{nrm}$, concluding that the extended functions above indeed form a Banach space extension of $E$.
+			\CC used; avoidable if $E$ is countable.
+		} and using the continuity of the extended functions and the \NLS structure of $E$. Finally, the fact that $d(x, y) = \norm{x - y}$ for $x, y\in X$ is also shown similarly, and from this, it follows that $X_\text{metr} = X_\text{nrm}$ so that \uline{completeness of $X_\text{metr}$} implies that of $X_\text{nrm}$, concluding that the extended functions above indeed form a Banach space extension of $E$.
 	\end{proof}
 	
 	\begin{rmk}
@@ -206,18 +202,33 @@
 	\end{rmk}
 	
 	
+	\begin{lem}\label{LEM: cont extensions preserve linearity}
+		Any continuous linear map from a dense subspace to a Banach space has a unique continuous extension to the whole of the domain. Further, the extension is linear.
+	\end{lem}
+	
+	\begin{proof}
+		Let $E_1$ be a dense subspace of $E$ and $f\colon E_1\to \mathscr B$ be continuous and linear. Since $f$ is Lipschitz (see \myRef{COR: cont lin maps are Lip}) and \uline{$\mathscr B$ Banach}, it admits a unique continuous extension $\tilde f\colon E\to\mathscr B$. Linearity of $\tilde f$ follows by representing points in $E$ as limits of sequences in $E_1$\myMargin{
+			\CC used unless $E_1$ is countable.
+		}, and using \uline{continuity and linearity of $f$}.
+	\end{proof}
+	
+	
 	\begin{prp}
-		Any metric completion of $E$ admits a Banach space structure becoming a \NLS completion of $E$, with norm recovering the metric.
+		Any metric completion of $E$ admits a unique Banach space structure becoming a norm completion of $E$ with the norm recovering the metric.
 	\end{prp}
 	
 	\begin{proof}
-		Let $\iota\colon E\to\hat E$ be a metric space completion of $E$. Now, transport the \NLS structure of $E$ to $\iota(E)$ via $\iota$. Consider the following facts:
+		Let $\iota\colon E\to\hat E$ be a metric space completion of $E$.
+		
+		First, we show uniqueness. Endow $\hat E$ with a Banach space structure such that $\iota$ becomes a norm completion with $d(\hat x, \hat y) = \norm{\hat x - \hat y}$. Denote $E$ with its original metric by $\hat E_\text{mtr}$ and $E$ with the metric due to norm by $\hat E_\text{nrm}$. Now, simply note that addition, scalar multiplication and norm on $\hat E$ are determined on $\iota(E)$ (that the \uline{norm on $\hat E$ recovers its original metric} is used here along with the fact that $\iota$ is a linear isometry), a dense subset of $\hat E_\text{mtr}\which=\hat E_\text{nrm}$, and thus are determined on whole of $\hat E$.
+		
+		Now we show the existence. Transport the \NLS structure of $E$ to $\iota(E)$ via $\iota$. Consider the following facts:
 		\begin{mylist}
 			\item $\hat E$ is complete.
 			\item $\iota(E)$ is dense in $\hat E$.
-			\item $d(\iota(x), \iota(y)) = d(x, y) = \norm{x - y}$ for any $x, y\in X$.
+			\item $d(\iota(x), \iota(y)) = d(x, y) = \norm{x - y} = \norm{\iota(x - y)} = \norm{\iota(x) - \iota(y)}$ for any $x, y\in X$ (first equality since $\iota$ an isometry; rest by definitions).
 		\end{mylist}
-		Due to \myRef{LEM: endowing a Banach space structure on a complete metr sp given an NLS structure on a dense subset}, we have that $\hat X$ admits a Banach space structure extending the \NLS structure on $\iota(E)$ such that $d(\hat x, \hat y) = \norm{\hat x - \hat y}$.\footnote{
+		Due to these, \myRef{LEM: endowing a Banach space structure on a complete metr sp given an NLS structure on a dense subset} implies that $\hat X$ admits a (unique) Banach space structure extending the \NLS structure on $\iota(E)$, which further satisfies $\norm{\hat x - \hat y} = d(\hat x, \hat y)$.\footnote{
 			We have abused notation, denoting the extended norm by the same symbol.
 		} That $\iota$ is linear follows from definition of the \NLS structure on $\iota(E)$. We now verify the universal property.
 		
@@ -228,15 +239,82 @@
 			& \hat E\ar[ur, dashed, "\tilde f"'] &
 		\end{tikzcd}
 		\]
-		It suffices to show that $\tilde f$ is linear, which follows by representing points in $\hat E$ as limits of sequences in $\iota(E)$\myMargin{
-			\CC used unless $E$ is countable.
-		} (for $\iota(E)$ is dense in $\hat E$), and using continuity of $\tilde f$ and linearity of $f$.
+		It suffices to show that $\tilde f$ is linear, which follows by \myRef{LEM: cont extensions preserve linearity} since $\tilde f$ is the continuous extension of the continuous (in fact, isometric) linear map $\iota(E)\to F$ induced by $f$, and since $\iota(E)$ is dense in $\hat E$.
 	\end{proof}
+	
+	\begin{rmk}
+		Conversely, any norm completion is a metric space completion. (See \myRef{CORi: immed conseq's of denseness of img of completion} of \myRef{COR: immed conseq's of denseness of img of completion}.)
+	\end{rmk}
 	
 	
 	\begin{cor}
 		Any \NLS admits a completion which is unique up to isometric \iso{s}.
 	\end{cor}
+	
+	
+	\begin{prp}\label{PRP: NLS dense in completion}
+		A \NLS is dense in its completion.
+	\end{prp}
+	
+	% Should we omit this, and just say that "same proof as for metric spaces"?
+	\begin{proof}
+		Let $\iota\colon E\to\hat E$ be a completion of $E$. Then $\iota|\colon E\to \overline{\iota(E)}$ is also a completion of $E$:
+		\begin{prooflist}
+			\item $\overline{\iota(E)}$ is closed subspace of a Banach space and is hence Banach.
+			
+			\item If $f\colon E\to F$ is a linear isometry with $F$ Banach, then it factors through $\iota|$ as follows:
+			\[
+			\begin{tikzcd}
+				& E\ar[dl, "\iota|"']\ar[d, "\iota"]\ar[dr, "f"] &\\
+				\overline{\iota(E)}\ar[r, hookrightarrow] & \hat E\ar[r, dashed] & F
+			\end{tikzcd}
+			\]
+			
+			For uniqueness, let $f$ factor through $\iota|$ via an linear isometry $\tilde f$:
+			\[
+			\begin{tikzcd}
+				& E\ar[dl]\ar[d, "\iota|"]\ar[dr, "f"] &\\
+				\iota(E)\ar[r, hookrightarrow] & \overline{\iota(E)}\ar[r, "\tilde f"'] & F
+			\end{tikzcd}
+			\]
+			Then $\tilde f$ is determined on $\iota(E)$ which is dense in $\overline{\iota(E)}$, and thus determined in all of $\overline{\iota(E)}$ due to continuity of $\tilde f$.
+		\end{prooflist}
+		
+		Thus, there exists a linear isometry $\alpha$ making \tfdc:
+		\[
+		\begin{tikzcd}[column sep=small]
+			& E\ar[dl, "\iota|"']\ar[dr, "\iota"] &\\
+		\overline{\iota(E)}\ar[rr, "\operatorname{incl}", hookrightarrow, shift left] & & \hat E\ar[ll, "\alpha", dashed, shift left]
+		\end{tikzcd}
+		\]
+		It follows that $\iota$ factors through itself via $\operatorname{incl}\circ\alpha$ which is thus equal to $\id_{\hat E}$ $\wimplies$ $\operatorname{incl}$ is a surjection $\wimplies$ $\overline{\iota(E)} = \hat E$ as claimed.
+	\end{proof}
+	
+	The immediate consequences include:
+	
+	\begin{cor}\label{COR: immed conseq's of denseness of img of completion}
+		\begin{mylist}
+			\item\label{CORi: immed conseq's of denseness of img of completion} Any norm completion is a metric completion.
+			
+			\item\label{CORii: immed conseq's of denseness of img of completion} A linear isometry into a Banach space is a completion $\iff$ the image is dense in the codomain.
+			
+			\item The completion of a dense subspace is canonically obtained from that of the parent space.
+			
+			\item In a Banach space, closure of subspaces are their completions.
+		\end{mylist}
+	\end{cor}
+	
+	\begin{proof}
+		\begin{mylist}
+			\item Since the image of the domain is dense.
+			
+			\item ``$\Rightarrow$'' is just \myRef{PRP: NLS dense in completion}. For the converse, use \ref{CORi: immed conseq's of denseness of img of completion} and \myRef{LEM: cont extensions preserve linearity}.
+			
+			\item Use \ref{CORii: immed conseq's of denseness of img of completion}.
+			
+			\item Use \ref{CORii: immed conseq's of denseness of img of completion}.\qedhere
+		\end{mylist}
+	\end{proof}
 	
 	
 

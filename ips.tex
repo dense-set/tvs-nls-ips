@@ -39,20 +39,28 @@
 	\end{lem}
 	
 	\begin{prp}[Cauchy-Schwarz]\label{PRP: cauchy-schwarz}
-		For $x, y\in V$, we have $\abs{\iprd{x, y}}\le \norm x\norm y$ with equality holding iff $x$, $y$ are linearly dependent.
+		For $x, y\in V$, we have $\abs{\iprd{x, y}}\le \norm x\norm y$ with equality holding $\iff$ $x$, $y$ are linearly dependent.
 	\end{prp}
 	
 	\begin{proof}
-		\Wlogg, let $y\ne 0$. Now, simply observe that\footnote{Note that $\frac{\iprd{x, y}}{\norm{y}^2}$ is the ``projection'' of $x$ on $y$.} $0 \le \Bigl\Vert x - \frac{\iprd{x, y}}{\norm{y}^2} y\Bigr\Vert^2 = \norm{x}^2 - \frac{\abs{\iprd{x, y}}^2}{\norm{y}^2}$ with equality holding iff $x = \frac{\iprd{x, y}}{\norm{y}^2}y$.
+		\Wlogg, let $y\ne 0$. Now, simply observe that\footnote{Note that $\frac{\iprd{x, y}}{\norm{y}^2}$ is the ``projection'' of $x$ on $y$.} $0 \le \Bigl\Vert x - \frac{\iprd{x, y}}{\norm{y}^2} y\Bigr\Vert^2 = \norm{x}^2 - \frac{\abs{\iprd{x, y}}^2}{\norm{y}^2}$ with equality holding $\iff$ $x = \frac{\iprd{x, y}}{\norm{y}^2}y$.
 	\end{proof}
 	
 	This gives the triangle inequality for $\norm\cdot$, so that:
 	
 	\begin{cor}\label{COR: norm due to inner prod}
-		$\norm\cdot$ defines a norm on $V$.
+		An inner product defines a norm \wrt to which the inner product is Cauchy-regular.
 	\end{cor}
 	
-	Now we prove a converse:
+	\begin{rmk}
+		Note that the inner-product needn't be uniformly continuous, let alone Lipschitz. See the remark after \myRef{LEM: immediate facts on NLS}. Nevertheless, the inner product is Lipschitz in either coordinate.
+	\end{rmk}
+	
+	
+	
+\subsection{Which norms come from inner products?}
+	
+	Here we prove a converse to \myRef{COR: norm due to inner prod}:
 	
 	\begin{prp}
 		Any norm that satisfies the parallelogram law (\myRef{EQ: parallelogram law}) comes from an inner product.
@@ -69,13 +77,13 @@
 		\[
 		\norm{u - 2v}^2 + \norm{u}^2 = 2\norm{u - v}^2 + 2\norm{v}^2\text.
 		\]
-		Subtracting these, yield
+		Subtracting these obtains
 		\[
 		\norm{u + 2v}^2 - \norm{u - 2v}^2 = 2\norm{u + v}^2 - 2\norm{u - v}^2
 		\]
 		which is the content of $\iprd{u, 2v} = 2\iprd{u, v}$.
 		
-		Homothety: Conclude that $\iprd{rx, y} = r\iprd{x, y}$ for any rational $r$. Then use continuity of the map $\alpha\mapsto \iprd{\alpha x, y}$ to deduce that it remains valid even for real $r$'s. Finally observe that if $K = \mathbb C$, then $\iprd{ix, y} = i\iprd{x, y}$ and thus validity extends to complex $r$'s as well.
+		Homothety: Conclude that $\iprd{rx, y} = r\iprd{x, y}$ for any rational $r$. Thus, the map $s\mapsto \iprd{sx, y}$ for $s\in\mathbb Q$ is Lipschitz (for fixed $x$, $y$) so that there exists a (unique) continuous extension of it on $\mathbb R$. Deduce (by representing reals as limits of rational sequences) that $\iprd{\alpha x, y} = \alpha\iprd{x, y}$ for real $\alpha$'s as well. Finally observe that if $K = \mathbb C$, then $\iprd{ix, y} = i\iprd{x, y}$ and thus the validity extends to complex $\alpha$'s as well.
 	\end{proof}
 	
 	\begin{rmk}
@@ -102,25 +110,34 @@
 		\]
 	\end{cor}
 	
-	\begin{comment}
-	Here are some helpful lemmas to be used later:
+	
+
+\subsection{Completion}
 	
 	\begin{lem}
-		If $\{x_0\}^\perp$ is dense in $V$, then $x_0 = 0$.
+		Let $V$ be a dense subspace of an \IPS $E$ with its inner product recovering the norm inherited from $E$. Then there exists a unique inner product on $E$ extending that on $V$, and recovering the norm on $E$.
 	\end{lem}
 	
 	\begin{proof}
-		Let $\epsilon > 0$. Since \uline{$E$ is dense}, take a $y\perp x_0$ such that $\norm{y - x_0} < \epsilon$. Now, $\norm{x_0}^2 = \iprd{x_0, x_0 - y} + \iprd{x_0, y} = \iprd{x_0, x_0 - y}\le \norm{x_0}\norm{x_0 - y}\le \epsilon\norm{x_0}\wimplies \norm{x_0}\le\epsilon$.
+		Let's settle uniqueness first. Suppose $E$ indeed admits an inner product as claimed. Denote $E$ with its original norm by $E_\text{nrm}$, and $E$ with the norm due to the extended inner product by $E_\text{iprd}$. Now, the extended inner product is continuous on $E_\text{iprd}\times E_\text{iprd}$ and determined a dense subset $V\times V$ (determined, because $E$'s \uline{inner product extends that on $V$}; dense, because \uline{$V$ is dense in $E_\text{nrm}\which = E_\text{iprd}$}), thus uniquely determined on $E\times E$.
+		
+		Now we show existence. Denote $V$ with the norm induced from its inner product by $V_\text{iprd}$, and $V$ with the norm inherited from $E$ by $V_\text{nrm}$. Consider the following facts:
+		\begin{mylist}
+			\item Inner product is Cauchy-regular on $V_\text{iprd}\times V_\text{iprd}\to K$.
+			
+			\item $V_\text{iprd} = V_\text{mtr}$ so that we may replace ``$V_\text{iprd}$'' by ``$V_\text{mtr}$'' in the above.
+			
+			\item \uline{$V$ is dense in $E$} so that $V\times V$ is dense in $E\times E$.
+		\end{mylist}
+		Due to these, there exists a (unique) continuous extension of $V$'s inner product to $E$. That this extension is actually an inner product that recovers the norm on $E$ can be shown by writing points in $E$ as limits of sequences in $V$.
 	\end{proof}
 	
-	\begin{lem}
-		Let $x_0, y_0\in V$ and $E := \{z\in V : z\perp x_0\implies z\perp y_0\}$ be dense in $V$. Then $y_0$ is a multiple of $x_0$.
-	\end{lem}
 	
-	\begin{proof}
-		Let 
-	\end{proof}
-	\end{comment}
+	\begin{cor}
+		A norm completion of an \IPS admits a unique inner product which regenerates the norm.
+	\end{cor}
+	
+	
 	
 	
 \section{Orthogonal Complements and Projections}
